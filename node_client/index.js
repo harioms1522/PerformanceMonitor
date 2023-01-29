@@ -1,5 +1,42 @@
 const os = require("os")
 const cpus = os.cpus()
+const io = require("socket.io-client")
+
+let socket = io("http://localhost:8181")
+
+let mac;
+socket.on("connect",()=>{
+    console.log("CONNECTED!")
+    // We have to identify the machine connected so we will use mac addr
+    const nI = os.networkInterfaces()
+    for (let key in nI){
+        if(!nI[key][0].internal==false){
+            mac = nI[key][0].mac
+            break;
+        }
+    }
+
+    // to auth as a client
+    socket.emit("clientAuth", "fskjsfadjkdsf")
+
+    // initial
+    performanceData().then((data)=>{
+        data.macA = mac
+        socket.emit("initPerfData", data)
+    })
+
+
+    let perDataInterval = setInterval(()=>{
+        performanceData().then((data)=>{
+            // console.log(data)
+            socket.emit("perfData", data)
+        })
+    }, 1000)
+
+
+    socket.on("disconnect", _ => clearInterval(perDataInterval))
+
+})
 
  function performanceData(){
     return new Promise(async (resolve, reject)=>{
@@ -65,6 +102,4 @@ function getCpuLoad(){
         },100)
     })
 }
-
-performanceData().then(console.log)
 
