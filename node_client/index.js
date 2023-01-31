@@ -9,11 +9,14 @@ socket.on("connect",()=>{
     console.log("CONNECTED!")
     // We have to identify the machine connected so we will use mac addr
     const nI = os.networkInterfaces()
+    // console.log(nI)
     for (let key in nI){
-        if(!nI[key][0].internal==false){
-            mac = nI[key][0].mac
-            break;
-        }
+        // if(!nI[key][0].internal==false){
+            if(nI[key][0].mac !== "00:00:00:00:00:00"){
+                mac = nI[key][0].mac
+                break;
+            }
+        // }
     }
 
     // to auth as a client
@@ -22,13 +25,15 @@ socket.on("connect",()=>{
     // initial
     performanceData().then((data)=>{
         data.macA = mac
+        // console.log("INITIAL DATA", data)
         socket.emit("initPerfData", data)
     })
 
 
     let perDataInterval = setInterval(()=>{
         performanceData().then((data)=>{
-            // console.log(data)
+            data.macA = mac
+            // console.log("DATA ON TICKS", data)
             socket.emit("perfData", data)
         })
     }, 1000)
@@ -48,6 +53,7 @@ socket.on("connect",()=>{
         const freeMem = os.freemem()
         const totalMem = os.totalmem()
         const memUsage = Math.floor((totalMem - freeMem)/totalMem*100)/100
+        const usedMem = totalMem - freeMem
     
         const cpuModel = cpus[0].model
         const cpuSpeed = cpus[0].speed
@@ -64,7 +70,8 @@ socket.on("connect",()=>{
             cpuModel, 
             cpuSpeed, 
             numCores, 
-            cpuLoad
+            cpuLoad,
+            usedMem
         })
 
     })

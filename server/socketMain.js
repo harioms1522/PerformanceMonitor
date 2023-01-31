@@ -2,9 +2,6 @@ const mongoose = require("mongoose")
 mongoose.set("strictQuery", true)
 try{
     const connection = mongoose.connect("mongodb+srv://harioms1522:456269456@cluster0.r8n4yzy.mongodb.net/test")
-    connection.error;("error",(err)=>{
-        console.log(err)
-    })
 }catch(err){
     console.log(err)
 }
@@ -32,6 +29,7 @@ function socketMain(io,socket){
 
     // if the machine is known then update otherwise add it
     socket.on("initPerfData",async (data)=>{
+        // console.log(data)
         macA = data.macA
         // check mongo
         const mongooseResp = await checkAndAdd(data)
