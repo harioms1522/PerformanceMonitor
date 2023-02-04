@@ -36,4 +36,4 @@ We will calculate the time avg after 100 ms and then calculate the hike there
 
 
 ## FINAL PRODUCT
-![img.png]("img.png")
+![./img.png](img.png)
