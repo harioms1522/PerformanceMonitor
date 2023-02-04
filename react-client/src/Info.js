@@ -2,7 +2,6 @@ import React from 'react';
 import moment from 'moment';
 
 function Info(props){
-  console.log(props)
     return (
         <div className="col-sm-3 col-sm-offset-1 cpu-info">
           <h3>Operating System</h3>

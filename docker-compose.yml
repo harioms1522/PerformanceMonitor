@@ -1,0 +1,28 @@
+version: '3'
+services:
+  server:
+    build:
+      context: ./server
+    ports:
+      - 8282:8181
+
+  redis:
+    image: redis
+
+  local-client:
+    build: 
+      context: ./node_client
+    # volumes:
+    #   - /perLoad/local-client/node_modules
+    #   - .:/perLoad/local-client
+
+  client-app:
+    build: 
+      context: ./react-client
+    ports:
+      - 8000:80
+    # using prod
+    # volumes:
+    #   - /perLoad/react-client/node_modules
+    #   - .:/perLoad/react-client
+

@@ -33,7 +33,7 @@ function socketMain(io,socket){
         macA = data.macA
         // check mongo
         const mongooseResp = await checkAndAdd(data)
-        console.log("mongooseResp", mongooseResp)
+        // console.log("mongooseResp", mongooseResp)
     })
 
     socket.on("perfData",(data)=>{

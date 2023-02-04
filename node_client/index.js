@@ -2,7 +2,7 @@ const os = require("os")
 const cpus = os.cpus()
 const io = require("socket.io-client")
 
-let socket = io("http://localhost:8181")
+let socket = io("http://server:8181")
 
 let mac;
 socket.on("connect",()=>{

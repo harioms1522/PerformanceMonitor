@@ -2,12 +2,9 @@ import React from 'react';
 import drawCircle from './utilities/canvasLoadAnimation';
 
 function Mem(props){
-
-    console.log(props);
     const {totalMem, usedMem, memUsage,freeMem} = props.memData;
     const canvas = document.querySelector(`.canvas-mem`);
     drawCircle(canvas,memUsage*100);
-    console.log(memUsage)
     const totalMemInGB = ((totalMem/1073741824*100)/100).toFixed(2);
     const freeMemInGB = Math.floor((freeMem/1073741824)*100)/100 ;
     return(
