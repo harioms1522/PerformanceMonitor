@@ -32,3 +32,8 @@ NODE SERVER:
 os.cpus() gives us an array of the cores details and there is this property called times that give the avg time the core has spent in each mode we will average out the total time for the cores and then to calculate load at a creatin point of time 
 
 We will calculate the time avg after 100 ms and then calculate the hike there
+
+
+
+## FINAL PRODUCT
+![img.png]("img.png")
